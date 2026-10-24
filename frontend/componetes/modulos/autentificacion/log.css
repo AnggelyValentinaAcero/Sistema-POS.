@@ -1,0 +1,212 @@
+:root {
+    --letra: #000000;
+    --fondo: #17221d;
+    --muted: #647169;
+    --paper: #f4f1e8;
+    --panel: #fffdf7;
+    --accent: #3d76df;
+    --accent-dark: #133980;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle, #ffffff 0 20%, #3d76df 100%);
+    font-family: Arial, sans-serif;
+}
+
+.auth-card {
+    width: min(900px, 100%);
+    min-height: 500px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "switch forms";
+    overflow: hidden;
+    border: 2px solid #7b678b;
+    border-radius: 20px;
+    background: var(--paper);
+    box-shadow: 0 16px 40px #13398033;
+    animation: aparecer 600ms ease-out both;
+}
+
+/* Al registrarse, el formulario y el panel azul intercambian lados. */
+.auth-card.modo-registro {
+    grid-template-areas: "forms switch";
+}
+
+.auth-switch {
+    grid-area: switch;
+    display: grid;
+    place-items: center;
+    padding: 40px;
+    text-align: center;
+    background: linear-gradient(140deg, #e3efff, #b6d2ff);
+}
+
+.switch-content {
+    width: min(100%, 320px);
+}
+
+.switch-content h2 {
+    margin: 0 0 12px;
+    color: var(--accent-dark);
+    font-size: 1.8rem;
+}
+
+.switch-content p {
+    margin: 0 0 24px;
+    color: #334b70;
+    line-height: 1.5;
+}
+
+.auth-forms {
+    grid-area: forms;
+    display: grid;
+    align-items: center;
+    padding: 40px;
+    background:
+        radial-gradient(circle at 12% 12%, #e7eddc 0, transparent 32%),
+        var(--paper);
+}
+
+.auth-view {
+    grid-area: 1 / 1;
+    width: 100%;
+    animation: aparecer 350ms ease-out both;
+}
+
+.CENTRADO {
+    width: min(100%, 420px);
+    display: grid;
+    gap: 14px;
+    margin: 0 auto;
+}
+
+.titulitulo {
+    margin: 0 0 14px;
+    color: var(--letra);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.auth-message {
+    min-height: 1.25em;
+    margin: 0;
+    color: #a12622;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.field-group {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 10px;
+    align-items: center;
+}
+
+.form-label {
+    color: var(--accent-dark);
+    font-size: 16px;
+}
+
+.form-input {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid #d3dce9;
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--letra);
+    font-size: 16px;
+}
+
+.form-input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+.fill-btn {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 8px;
+    padding: 10px 16px;
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--accent-dark);
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.fill-btn::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+}
+
+.fill-btn:hover {
+    color: #ffffff;
+}
+
+.fill-btn:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 680px) {
+    .auth-card {
+        min-height: auto;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "switch"
+            "forms";
+    }
+
+    .auth-card.modo-registro {
+        grid-template-areas:
+            "forms"
+            "switch";
+    }
+
+    .auth-switch {
+        min-height: 210px;
+        padding: 28px 22px;
+    }
+
+    .auth-forms {
+        min-height: 390px;
+        padding: 28px 22px;
+    }
+}
