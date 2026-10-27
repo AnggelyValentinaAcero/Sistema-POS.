@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.EntradaFormController"
+      spacing="8" prefWidth="440">
+    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+    <Label text="Producto"/>
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label fx:id="lblProducto" text="(ninguno)" style="-fx-font-weight: bold;" HBox.hgrow="ALWAYS" maxWidth="Infinity"
+               wrapText="true"/>
+        <Button text="Elegir..." onAction="#elegirProducto"/>
+    </HBox>
+    <Label fx:id="lblStockActual" styleClass="subtitulo"/>
+
+    <Label text="Cantidad recibida"/>
+    <TextField fx:id="txtCantidad"/>
+    <Label text="Costo unitario"/>
+    <TextField fx:id="txtCosto"/>
+    <CheckBox fx:id="chkActualizarCosto" text="Usar este costo como nuevo precio de compra del producto" selected="true"
+              wrapText="true"/>
+    <Label text="Proveedor"/>
+    <ComboBox fx:id="cmbProveedor" maxWidth="Infinity"/>
+    <Label text="Observación (ej: N° de factura)"/>
+    <TextField fx:id="txtObservacion"/>
+
+    <Label fx:id="lblMensaje" styleClass="mensaje-error" wrapText="true" managed="false" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding><Insets top="8"/></padding>
+        <Button text="Cancelar" cancelButton="true" onAction="#cancelar"/>
+        <Button fx:id="btnGuardar" text="Registrar entrada" defaultButton="true" styleClass="boton-primario"
+                onAction="#guardar"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.ProveedorFormController"
+      spacing="8" prefWidth="420">
+    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+    <Label text="Nombre o razón social"/>
+    <TextField fx:id="txtNombre"/>
+    <Label text="Documento (RUC / NIT)"/>
+    <TextField fx:id="txtDocumento"/>
+    <Label text="Teléfono"/>
+    <TextField fx:id="txtTelefono"/>
+    <Label text="Email"/>
+    <TextField fx:id="txtEmail"/>
+    <Label text="Dirección"/>
+    <TextField fx:id="txtDireccion"/>
+
+    <Label fx:id="lblMensaje" styleClass="mensaje-error" wrapText="true" managed="false" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding><Insets top="8"/></padding>
+        <Button text="Cancelar" cancelButton="true" onAction="#cancelar"/>
+        <Button fx:id="btnGuardar" text="Guardar" defaultButton="true" styleClass="boton-primario" onAction="#guardar"/>
+    </HBox>
+</VBox>

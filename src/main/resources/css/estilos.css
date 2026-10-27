@@ -1,0 +1,226 @@
+/* Estilos globales del Sistema POS */
+
+.root {
+    -pos-primario: #1f3a5f;
+    -pos-acento: #2e86de;
+    -pos-fondo: #f4f6f9;
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: -pos-fondo;
+}
+
+.barra-superior {
+    -fx-background-color: -pos-primario;
+    -fx-padding: 12 16;
+}
+
+.titulo-app {
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.titulo {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pos-primario;
+}
+
+.subtitulo {
+    -fx-font-size: 15px;
+    -fx-text-fill: #5a6b7d;
+}
+
+.texto-barra {
+    -fx-text-fill: white;
+}
+
+.boton-barra {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255, 255, 255, 0.5);
+    -fx-border-radius: 4;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.boton-barra:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.12);
+}
+
+.menu-lateral {
+    -fx-background-color: white;
+    -fx-border-color: transparent #dde3ea transparent transparent;
+    -fx-padding: 12 8;
+}
+
+.boton-menu {
+    -fx-background-color: transparent;
+    -fx-alignment: center-left;
+    -fx-padding: 10 14;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+
+.boton-menu:hover {
+    -fx-background-color: #eef3f9;
+}
+
+.boton-menu.seleccionado {
+    -fx-background-color: -pos-acento;
+    -fx-text-fill: white;
+}
+
+.titulo-modulo {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pos-primario;
+}
+
+/* Vista previa del recibo: letra monoespaciada como en la impresora */
+.recibo, .ticket {
+    -fx-font-family: "Consolas", "Courier New", monospace;
+    -fx-font-size: 13px;
+}
+
+.sin-borde, .sin-borde > .viewport {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+/* Indicadores del dashboard de reportes */
+.kpi {
+    -fx-padding: 14 16;
+    -fx-spacing: 4;
+}
+
+.kpi-titulo {
+    -fx-text-fill: #5a6b7d;
+    -fx-font-size: 13px;
+}
+
+.kpi-valor {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pos-primario;
+}
+
+.kpi-ganancia {
+    -fx-text-fill: #1e8e3e;
+}
+
+.kpi-detalle {
+    -fx-text-fill: #5a6b7d;
+    -fx-font-size: 12px;
+}
+
+.chart-bar {
+    -fx-bar-fill: -pos-acento;
+}
+
+/* Punto de venta */
+.total-venta {
+    -fx-font-size: 34px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pos-primario;
+}
+
+.boton-cobrar {
+    -fx-background-color: #1e8e3e;
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 14;
+    -fx-cursor: hand;
+}
+
+.aviso-caja {
+    -fx-background-color: #fff3cd;
+    -fx-text-fill: #7a5b00;
+    -fx-padding: 10;
+    -fx-background-radius: 6;
+}
+
+/* Ventas anuladas en el historial */
+.table-row-cell.fila-anulada .text {
+    -fx-strikethrough: true;
+    -fx-fill: #8a94a3;
+}
+
+.boton-peligro {
+    -fx-background-color: #c0392b;
+    -fx-text-fill: white;
+}
+
+/* Kardex: entradas en verde, salidas en rojo */
+.table-row-cell.fila-entrada {
+    -fx-background-color: #e6f4ea;
+}
+
+.table-row-cell.fila-salida {
+    -fx-background-color: #fdecea;
+}
+
+.table-row-cell.fila-entrada:selected, .table-row-cell.fila-salida:selected {
+    -fx-background-color: -pos-acento;
+}
+
+/* Productos con stock en el mínimo o por debajo */
+.table-row-cell.fila-stock-bajo {
+    -fx-background-color: #fde2e1;
+}
+
+.table-row-cell.fila-stock-bajo:selected {
+    -fx-background-color: #e57373;
+}
+
+.tarjeta {
+    -fx-background-color: white;
+    -fx-background-radius: 8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.12), 16, 0, 0, 4);
+}
+
+.titulo-tarjeta {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -pos-primario;
+}
+
+.boton-primario {
+    -fx-background-color: -pos-acento;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.mensaje-exito {
+    -fx-text-fill: #1e7e34;
+}
+
+.mensaje-error {
+    -fx-text-fill: #c0392b;
+}
+
+.barra-estado {
+    -fx-background-color: #e3e8ee;
+}
+
+.barra-estado .label {
+    -fx-font-size: 12px;
+    -fx-text-fill: #42526e;
+}
+
+/* Botón de visibilidad de contraseña (ojo) */
+.boton-ojo {
+    -fx-background-color: transparent;
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 4 8;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+}
+
+.boton-ojo:hover {
+    -fx-background-color: #e2e8f0;
+}
+

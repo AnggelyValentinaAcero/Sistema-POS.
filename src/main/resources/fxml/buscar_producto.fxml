@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.BuscarProductoController"
+      spacing="10" prefWidth="680" prefHeight="460">
+    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+    <HBox spacing="8">
+        <TextField fx:id="txtBuscar" HBox.hgrow="ALWAYS" promptText="Nombre o código (Enter para buscar)"
+                   onAction="#buscar"/>
+        <Button text="Buscar" onAction="#buscar"/>
+    </HBox>
+
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS" onMouseClicked="#clicTabla" onKeyPressed="#teclaTabla">
+        <columns>
+            <TableColumn fx:id="colCodigo" text="Código" prefWidth="130"/>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="280"/>
+            <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100"/>
+            <TableColumn fx:id="colStock" text="Stock" prefWidth="90"/>
+        </columns>
+        <placeholder><Label text="No se encontraron productos"/></placeholder>
+    </TableView>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancelar" cancelButton="true" onAction="#cancelar"/>
+        <Button fx:id="btnSeleccionar" text="Seleccionar" styleClass="boton-primario" onAction="#seleccionar"/>
+    </HBox>
+</VBox>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.ReciboVistaController" spacing="10">
+    <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+    <!-- El recibo se muestra con letra monoespaciada, igual que en la impresora -->
+    <TextArea fx:id="txtRecibo" editable="false" styleClass="recibo" prefRowCount="30" VBox.vgrow="ALWAYS"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button fx:id="btnCerrar" text="Cerrar" cancelButton="true" onAction="#cerrar"/>
+        <Button text="Imprimir" defaultButton="true" styleClass="boton-primario" onAction="#imprimir"/>
+    </HBox>
+</VBox>

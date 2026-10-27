@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.CobroController"
+      spacing="10" prefWidth="360">
+    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+    <Label text="Total a pagar" styleClass="subtitulo"/>
+    <Label fx:id="lblTotal" styleClass="total-venta"/>
+
+    <Label text="Método de pago"/>
+    <ComboBox fx:id="cmbMetodo" maxWidth="Infinity" onAction="#metodoCambiado"/>
+
+    <!-- Solo para efectivo -->
+    <VBox fx:id="panelEfectivo" spacing="6">
+        <Label text="Efectivo recibido"/>
+        <TextField fx:id="txtRecibido" onAction="#confirmar"/>
+        <HBox spacing="8">
+            <Label text="Cambio:" styleClass="subtitulo"/>
+            <Label fx:id="lblCambio" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        </HBox>
+    </VBox>
+
+    <!-- Solo para tarjeta o transferencia -->
+    <VBox fx:id="panelReferencia" spacing="6">
+        <Label text="N° de referencia / voucher (opcional)"/>
+        <TextField fx:id="txtReferencia" onAction="#confirmar"/>
+    </VBox>
+
+    <Label fx:id="lblMensaje" styleClass="mensaje-error" wrapText="true" managed="false" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <padding><Insets top="8"/></padding>
+        <Button text="Cancelar" cancelButton="true" onAction="#cancelar"/>
+        <Button fx:id="btnConfirmar" text="Confirmar pago" styleClass="boton-primario" onAction="#confirmar"/>
+    </HBox>
+</VBox>

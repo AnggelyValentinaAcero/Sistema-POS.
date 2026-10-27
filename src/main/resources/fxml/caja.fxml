@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.CajaController" spacing="12">
+
+    <Label text="Caja" styleClass="titulo-modulo"/>
+
+    <StackPane VBox.vgrow="ALWAYS" alignment="TOP_LEFT">
+
+        <!-- Se muestra cuando la caja está cerrada -->
+        <VBox fx:id="panelCerrada" styleClass="tarjeta" spacing="10" maxWidth="420" maxHeight="-Infinity">
+            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+            <Label text="La caja de esta terminal está cerrada" styleClass="titulo-tarjeta"/>
+            <Label text="Ingrese el dinero con el que inicia el turno (fondo de caja para dar cambio)."
+                   wrapText="true" styleClass="subtitulo"/>
+            <Label text="Monto inicial"/>
+            <TextField fx:id="txtMontoInicial" text="0" onAction="#abrirCaja"/>
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="Abrir caja" styleClass="boton-primario" onAction="#abrirCaja"/>
+            </HBox>
+        </VBox>
+
+        <!-- Se muestra cuando la caja está abierta -->
+        <VBox fx:id="panelAbierta" styleClass="tarjeta" spacing="10" maxWidth="520" maxHeight="-Infinity">
+            <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Caja abierta" styleClass="titulo-tarjeta"/>
+                <StackPane HBox.hgrow="ALWAYS"/>
+                <Button text="Actualizar" onAction="#actualizar"/>
+            </HBox>
+
+            <GridPane hgap="16" vgap="6">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="180"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+                <Label text="Terminal" GridPane.rowIndex="0"/>
+                <Label fx:id="lblTerminal" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Abierta por" GridPane.rowIndex="1"/>
+                <Label fx:id="lblUsuario" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Fecha de apertura" GridPane.rowIndex="2"/>
+                <Label fx:id="lblApertura" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Monto inicial" GridPane.rowIndex="3"/>
+                <Label fx:id="lblMontoInicial" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Ventas realizadas" GridPane.rowIndex="4"/>
+                <Label fx:id="lblCantidadVentas" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <Separator/>
+            <Label text="Cobrado por método de pago" styleClass="subtitulo"/>
+            <VBox fx:id="panelTotales" spacing="4"/>
+            <HBox spacing="16">
+                <Label text="Efectivo esperado en caja:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="lblEsperado" style="-fx-font-weight: bold;"/>
+            </HBox>
+
+            <Separator/>
+            <Label text="Cierre de caja" styleClass="subtitulo"/>
+            <Label text="Efectivo contado"/>
+            <TextField fx:id="txtContado"/>
+            <Label text="Observaciones"/>
+            <TextField fx:id="txtObservaciones"/>
+            <HBox alignment="CENTER_RIGHT">
+                <Button text="Cerrar caja" styleClass="boton-primario" onAction="#cerrarCaja"/>
+            </HBox>
+        </VBox>
+    </StackPane>
+</VBox>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.ReportesController" fitToWidth="true" styleClass="sin-borde">
+    <VBox spacing="14">
+        <padding><Insets right="8"/></padding>
+
+        <!-- Filtro de fechas -->
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <Label text="Reportes" styleClass="titulo-modulo"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Hoy" onAction="#hoy"/>
+            <Button text="Últimos 7 días" onAction="#ultimos7Dias"/>
+            <Button text="Este mes" onAction="#esteMes"/>
+            <Button text="Mes anterior" onAction="#mesAnterior"/>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="8">
+            <Label text="Desde"/>
+            <DatePicker fx:id="dpDesde" prefWidth="140"/>
+            <Label text="Hasta"/>
+            <DatePicker fx:id="dpHasta" prefWidth="140"/>
+            <Button text="Consultar" styleClass="boton-primario" onAction="#consultar"/>
+        </HBox>
+
+        <!-- Indicadores principales (KPI) -->
+        <HBox spacing="12">
+            <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                <Label text="Ventas realizadas" styleClass="kpi-titulo"/>
+                <Label fx:id="lblCantidad" styleClass="kpi-valor"/>
+            </VBox>
+            <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                <Label text="Total vendido" styleClass="kpi-titulo"/>
+                <Label fx:id="lblTotal" styleClass="kpi-valor"/>
+                <Label fx:id="lblImpuestos" styleClass="kpi-detalle"/>
+            </VBox>
+            <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                <Label text="Recibo promedio" styleClass="kpi-titulo"/>
+                <Label fx:id="lblReciboPromedio" styleClass="kpi-valor"/>
+            </VBox>
+            <VBox styleClass="tarjeta, kpi" HBox.hgrow="ALWAYS">
+                <Label text="Ganancia" styleClass="kpi-titulo"/>
+                <Label fx:id="lblGanancia" styleClass="kpi-valor, kpi-ganancia"/>
+                <Label fx:id="lblMargen" styleClass="kpi-detalle"/>
+            </VBox>
+        </HBox>
+
+        <!-- Ventas por día -->
+        <VBox styleClass="tarjeta" spacing="4">
+            <padding><Insets top="12" right="12" bottom="4" left="12"/></padding>
+            <Label text="Ventas por día" styleClass="titulo-tarjeta"/>
+            <BarChart fx:id="graficoDias" legendVisible="false" animated="false" prefHeight="260">
+                <xAxis><CategoryAxis/></xAxis>
+                <yAxis><NumberAxis/></yAxis>
+            </BarChart>
+        </VBox>
+
+        <HBox spacing="12">
+            <!-- Productos más vendidos -->
+            <VBox styleClass="tarjeta" spacing="8" HBox.hgrow="ALWAYS">
+                <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                <Label text="Productos más vendidos" styleClass="titulo-tarjeta"/>
+                <TableView fx:id="tablaProductos" prefHeight="300">
+                    <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                    <columns>
+                        <TableColumn fx:id="colProducto" text="Producto" prefWidth="220"/>
+                        <TableColumn fx:id="colUnidades" text="Unidades" prefWidth="80"/>
+                        <TableColumn fx:id="colTotalProducto" text="Total" prefWidth="100"/>
+                        <TableColumn fx:id="colGananciaProducto" text="Ganancia" prefWidth="100"/>
+                    </columns>
+                    <placeholder><Label text="Sin ventas en el período"/></placeholder>
+                </TableView>
+            </VBox>
+
+            <!-- Métodos de pago y cajeros -->
+            <VBox spacing="12" prefWidth="420">
+                <VBox styleClass="tarjeta" spacing="4">
+                    <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                    <Label text="Métodos de pago" styleClass="titulo-tarjeta"/>
+                    <PieChart fx:id="graficoMetodos" legendVisible="false" animated="false" prefHeight="200"/>
+                </VBox>
+                <VBox styleClass="tarjeta" spacing="8">
+                    <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+                    <Label text="Ventas por cajero" styleClass="titulo-tarjeta"/>
+                    <TableView fx:id="tablaCajeros" prefHeight="140">
+                        <columnResizePolicy><TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/></columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colCajero" text="Cajero" prefWidth="200"/>
+                            <TableColumn fx:id="colVentasCajero" text="Ventas" prefWidth="70"/>
+                            <TableColumn fx:id="colTotalCajero" text="Total" prefWidth="100"/>
+                        </columns>
+                        <placeholder><Label text="Sin ventas"/></placeholder>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</ScrollPane>

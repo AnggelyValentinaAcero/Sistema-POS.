@@ -1,123 +1,97 @@
-# Sistema-POS (Point of Sale).
-##Presentación del proyecto
+# Sistema POS
 
-### Descripción general
+Sistema de Punto de Venta de escritorio hecho en **Java (JavaFX)** con base de datos **MySQL**.
 
-El Sistema POS (Point of Sale) es una aplicación orientada a la automatización, centralización y auditoría de las operaciones comerciales de pequeños y medianos negocios, como minimarkets, ferreterías y farmacias.
+Arquitectura: **MVC** (vistas FXML + controladores), una capa de **services** con la lógica de negocio
+y una capa de persistencia con los patrones **DAO** y **DTO** usando JDBC con `PreparedStatement`.
 
-El proyecto surge como respuesta a problemas asociados a la gestión manual o semi-manual de las ventas y el inventario, tales como errores en el cálculo de cobros, descontrol del stock y dificultades para realizar seguimiento a las operaciones.
+## Funcionalidades
 
-El sistema busca centralizar la información de las ventas y el inventario en una base de datos, permitiendo mantener información confiable y facilitar la toma de decisiones basada en datos.
+- **Seguridad:**
+  - login con contraseñas cifradas (BCrypt);
+  - roles Administrador, Supervisor y Cajero, con permisos por módulo;
+  - gestión de usuarios.
+- **Catálogo:** productos (código de barras, impuesto, stock mínimo), categorías, proveedores y clientes.
+- **Punto de venta:**
+  - escaneo de códigos de barras y cobro en efectivo (con cálculo del cambio), tarjeta o transferencia;
+  - **cada venta se guarda en una transacción ACID**.
+- **Caja:** apertura y cierre por turno, con efectivo esperado contra contado (faltante o sobrante).
+- **Recibos:** impresoras térmicas (ESC/POS) o cualquier impresora de Windows/PDF, reimpresión y
+  comprobante de cierre.
+- **Inventario:** entradas de mercadería, ajustes con motivo, conteo físico, kardex y alertas de
+  stock bajo.
+- **Reportes:** ventas, ganancia real, recibo promedio, productos más vendidos, métodos de pago y
+  ventas por cajero.
+- **Control:**
+  - anulación de ventas (devuelve el stock);
+  - auditoría de todas las acciones sensibles (precios, caja, anulaciones, accesos).
 
----
+## Requisitos
 
-## Objetivo general
+- JDK 21 o superior (solo para compilar; el ejecutable generado incluye su propio Java)
+- MySQL 8
 
-Desarrollar un sistema POS que permita automatizar y centralizar las operaciones de venta e inventario, garantizando la integridad de los datos y proporcionando información útil para el control y análisis del negocio.
+No hace falta instalar Maven, porque el proyecto incluye el wrapper (`mvnw`).
 
----
+## Instalación de la base de datos
 
-##  Objetivos específicos
+1. Abrir `database/base_datos.sql` en MySQL Workbench y ejecutarlo con el usuario `root`.
+   El script crea la base `pos_db`, las tablas y los datos iniciales.
+2. Crear un usuario de MySQL para la aplicación (las instrucciones están al inicio del script).
+   Use una contraseña sin acentos ni ñ.
+3. Ejecutar la aplicación. La primera vez pide los datos de conexión (servidor local o remoto) y los
+   guarda en `C:\Users\<usuario>\sistema-pos.properties`.
+4. Ingresar con **admin / admin**. El sistema pide cambiar la contraseña en el primer ingreso.
 
-- Agilizar el proceso de registro y cobro de las ventas.
-- Reducir errores humanos en el cálculo de precios y cambio.
-- Actualizar automáticamente el inventario al registrar una venta.
-- Mantener un registro confiable de las transacciones realizadas.
-- Facilitar la consulta de información relacionada con las ventas.
-- Proporcionar métricas e información que apoyen la toma de decisiones.
-- Mantener la integridad y consistencia de la información almacenada.
+## Comandos
 
----
+Los pasos explicados con más calma están en `COMPILACION.md`.
 
-##  Problemas que busca solucionar
+```bash
+mvnw.cmd javafx:run              # ejecutar la aplicación
+mvnw.cmd test                    # ejecutar las pruebas
+mvnw.cmd package                 # generar target/sistema-pos-0.1.0-SNAPSHOT.jar
+scripts\crear_ejecutable.bat     # generar dist\SistemaPOS\SistemaPOS.exe (con Java incluido)
+scripts\crear_ejecutable.bat exe # generar un instalador .exe (requiere WiX Toolset 3)
+```
 
-El sistema está orientado a solucionar principalmente:
+`crear_ejecutable.bat` usa `jpackage` del JDK. Lo busca en `JAVA_HOME`, en el PATH y en
+`C:\Program Files\Java\jdk-*`. Si el JDK está en otra carpeta, defina `JAVA_HOME`.
 
-- Errores de cálculo durante el cobro.
-- Descontrol del inventario.
-- Dificultad para rastrear las operaciones.
-- Manipulación o inconsistencias en la información.
-- Falta de información para analizar el comportamiento de las ventas.
+## Estructura
 
----
+```
+database/base_datos.sql     script de la base de datos
+database/datos_prueba.sql   datos de ejemplo para la demostración
+scripts/                    generación del ejecutable de Windows
+src/main/java/com/pos
+ ├─ app/          arranque y apertura de ventanas
+ ├─ config/       configuración y conexión a MySQL
+ ├─ dto/          objetos de transferencia de datos
+ ├─ dao/          clases DAO (JDBC con PreparedStatement)
+ ├─ service/      lógica de negocio y transacciones
+ ├─ controller/   controladores de las vistas
+ ├─ print/        armado del recibo e impresión (ESC/POS y Windows)
+ └─ util/         sesión, permisos, contraseñas, alertas
+src/main/resources
+ ├─ fxml/         vistas
+ └─ css/          estilos
+```
 
-##  Funcionalidades principales
+Cada carpeta de código (`src/main/java/com/pos/*` y `src/test/java/com/pos/*`) tiene su propio
+`README.md`. Explica qué hace cada archivo `.java` de esa carpeta y muestra sus partes de código
+más importantes.
 
-Entre las funcionalidades propuestas para el sistema se encuentran:
+## Avance
 
-- Registro de productos.
-- Gestión y consulta del inventario.
-- Registro de ventas.
-- Gestión del detalle de las ventas.
-- Actualización automática del inventario.
-- Registro del operador responsable de la transacción.
-- Consulta de información histórica de ventas.
-- Generación de métricas para apoyar la toma de decisiones.
-
----
-
-##  Base de datos
-
-La aplicación utilizará **MySQL** como sistema de gestión de base de datos.
-
-La base de datos será diseñada aplicando reglas de normalización hasta tercera forma normal (3NF), con el objetivo de reducir redundancias y mantener la integridad referencial.
-
-El sistema utilizará una estructura Maestro-Detalle para las transacciones de venta:
-
-- **Maestro:** almacena información general de la venta.
-- **Detalle:** almacena cada uno de los artículos incluidos en la venta.
-
-El precio unitario histórico será almacenado en el detalle de la venta para conservar el valor utilizado en el momento de la transacción.
-
----
-
-##  Arquitectura del sistema
-
-El proyecto utilizará una arquitectura multicapa.
-
-La solución contempla:
-
-- **Capa de presentación**, basada en el patrón MVC.
-- **Capa de aplicación**, desarrollada en Java.
-- **Capa de persistencia**, utilizando DAO y DTO.
-- **Capa de datos**, implementada con MySQL.
-
-La comunicación entre Java y MySQL se realizará mediante JDBC.
-
----
-
-##  Tecnologías
-
-- **Lenguaje:** Java
-- **Base de datos:** MySQL
-- **Conectividad:** JDBC
-- **Patrón de presentación:** MVC
-- **Persistencia:** DAO
-- **Transferencia de datos:** DTO
-- **Control de versiones:** Git y GitHub
-
----
-
-##  Seguridad e integridad de datos
-
-El sistema tendrá como prioridad la integridad y consistencia de las transacciones.
-
-Para el acceso a la base de datos se utilizarán consultas parametrizadas mediante `PreparedStatement`, con el objetivo de evitar la concatenación directa de consultas SQL.
-
-Las operaciones relacionadas con una venta deberán ejecutarse como una única transacción, garantizando las propiedades ACID.
-
----
-
-##  Control de transacciones
-
-El registro de una venta contempla como una operación conjunta:
-
-1. Inserción de la información de la venta.
-2. Inserción de las líneas de detalle.
-3. Actualización del inventario.
-
-Estas operaciones deberán completarse correctamente para que los cambios sean almacenados.
-
-En caso de producirse un error durante el proceso, la transacción deberá revertirse para evitar información inconsistente.
-
----
+| Fase | Contenido | Estado |
+|---|---|---|
+| 0 | Proyecto base, estructura | ✅ |
+| 1 | Base de datos y ventana de conexión | ✅ |
+| 2 | Login, roles, permisos y gestión de usuarios | ✅ |
+| 3 | Productos, categorías, proveedores, clientes | ✅ |
+| 4 | Punto de venta, cobro, transacción de venta, caja, historial | ✅ |
+| 5 | Impresión de recibos, cierre de caja y configuración | ✅ |
+| 6 | Inventario: entradas, ajustes, conteo físico, kardex, stock bajo | ✅ |
+| 7 | Dashboard: KPIs, ganancia, ventas por día, top productos, métodos de pago, cajeros | ✅ |
+| 8 | Anulación de ventas, visor de auditoría, ejecutable de Windows | ✅ |

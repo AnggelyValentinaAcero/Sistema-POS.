@@ -1,16 +1,38 @@
-# Python
-__pycache__/
-*.py[cod]
-.venv/
-venv/
+# Maven (compilación)
+target/
+!.mvn/wrapper/maven-wrapper.jar
 
-# Local configuration and secrets
-.env
-.env.*
-!.env.example
+# Ejecutable generado con scripts/crear_ejecutable.bat
+dist/
 
-# Editor and operating system files
-.vscode/
+# IDEs
 .idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+nbproject/
+nbactions.xml
+
+# Sistema operativo
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# Configuración local con credenciales
+pos.properties
+sistema-pos.properties
+CREDENCIALES.md
+
+# Logs
+*.log
+
+# Archivos de asistentes de IA
+AGENTS.md
+CLAUDE.md
+.claude/
+
+# Material personal (guía de exposición y guion de la demo, lista de pruebas manuales)
+docs/
+TESTS.md

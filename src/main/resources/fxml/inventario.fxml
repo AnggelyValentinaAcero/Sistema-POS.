@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.InventarioController" spacing="12">
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Inventario" styleClass="titulo-modulo"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Registrar entrada" styleClass="boton-primario" onAction="#registrarEntrada"/>
+        <Button text="Ajustar inventario" onAction="#ajustarInventario"/>
+    </HBox>
+
+    <TabPane fx:id="pestanas" VBox.vgrow="ALWAYS" tabClosingPolicy="UNAVAILABLE">
+
+        <!-- Productos que hay que reponer -->
+        <Tab text="Stock bajo">
+            <VBox spacing="8">
+                <padding><Insets top="10"/></padding>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label fx:id="lblStockBajo" styleClass="subtitulo"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Actualizar" onAction="#cargarStockBajo"/>
+                    <Button text="Ver kardex" onAction="#verKardexSeleccionado"/>
+                </HBox>
+                <TableView fx:id="tablaStockBajo" VBox.vgrow="ALWAYS" onMouseClicked="#clicStockBajo">
+                    <columns>
+                        <TableColumn fx:id="colSbCodigo" text="Código" prefWidth="130"/>
+                        <TableColumn fx:id="colSbNombre" text="Producto" prefWidth="280"/>
+                        <TableColumn fx:id="colSbStock" text="Stock" prefWidth="90"/>
+                        <TableColumn fx:id="colSbMinimo" text="Mínimo" prefWidth="90"/>
+                        <TableColumn fx:id="colSbUnidad" text="Unidad" prefWidth="70"/>
+                        <TableColumn fx:id="colSbProveedor" text="Proveedor" prefWidth="200"/>
+                    </columns>
+                    <placeholder><Label text="Ningún producto está por debajo de su stock mínimo"/></placeholder>
+                </TableView>
+                <Label text="Doble clic en un producto para registrar su entrada de mercadería." styleClass="subtitulo"/>
+            </VBox>
+        </Tab>
+
+        <!-- Historial de movimientos de un producto -->
+        <Tab fx:id="tabKardex" text="Kardex">
+            <VBox spacing="8">
+                <padding><Insets top="10"/></padding>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Button text="Elegir producto..." onAction="#elegirProductoKardex"/>
+                    <Button text="Ver todos" onAction="#verTodosKardex"/>
+                    <Label fx:id="lblProductoKardex" text="(todos los productos)" style="-fx-font-weight: bold;"/>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label text="Desde"/>
+                    <DatePicker fx:id="dpDesde" prefWidth="140"/>
+                    <Label text="Hasta"/>
+                    <DatePicker fx:id="dpHasta" prefWidth="140"/>
+                    <Button text="Consultar" onAction="#consultarKardex"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="lblResumenKardex" style="-fx-font-weight: bold;"/>
+                </HBox>
+                <TableView fx:id="tablaKardex" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colKFecha" text="Fecha" prefWidth="130"/>
+                        <TableColumn fx:id="colKProducto" text="Producto" prefWidth="200"/>
+                        <TableColumn fx:id="colKTipo" text="Tipo" prefWidth="90"/>
+                        <TableColumn fx:id="colKCantidad" text="Cantidad" prefWidth="85"/>
+                        <TableColumn fx:id="colKStock" text="Stock resultante" prefWidth="110"/>
+                        <TableColumn fx:id="colKUsuario" text="Usuario" prefWidth="140"/>
+                        <TableColumn fx:id="colKDetalle" text="Detalle" prefWidth="240"/>
+                    </columns>
+                    <placeholder><Label text="No hay movimientos en el período seleccionado"/></placeholder>
+                </TableView>
+            </VBox>
+        </Tab>
+    </TabPane>
+</VBox>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.UsuariosController" spacing="12">
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label text="Usuarios" styleClass="titulo-modulo"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Nuevo" styleClass="boton-primario" onAction="#nuevo"/>
+        <Button text="Editar" onAction="#editar"/>
+        <Button text="Restablecer contraseña" onAction="#restablecerPassword"/>
+        <Button text="Actualizar" onAction="#cargarUsuarios"/>
+    </HBox>
+
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS" onMouseClicked="#clicTabla">
+        <columns>
+            <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="140"/>
+            <TableColumn fx:id="colNombre" text="Nombre completo" prefWidth="260"/>
+            <TableColumn fx:id="colRol" text="Rol" prefWidth="140"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="90"/>
+            <TableColumn fx:id="colUltimoAcceso" text="Último acceso" prefWidth="160"/>
+        </columns>
+        <placeholder><Label text="No hay usuarios"/></placeholder>
+    </TableView>
+</VBox>

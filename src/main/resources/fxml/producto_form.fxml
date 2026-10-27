@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.pos.controller.ProductoFormController"
+      spacing="14" prefWidth="620">
+    <padding><Insets top="20" right="24" bottom="20" left="24"/></padding>
+
+    <GridPane hgap="12" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="120"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+            <ColumnConstraints minWidth="110"/>
+            <ColumnConstraints hgrow="ALWAYS"/>
+        </columnConstraints>
+
+        <Label text="Código de barras" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtCodigo" promptText="Escanee o escriba" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+        <Label text="Unidad" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+        <ComboBox fx:id="cmbUnidad" maxWidth="Infinity" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+        <Label text="Nombre" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtNombre" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+        <Label text="Descripción" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtDescripcion" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+        <Label text="Categoría" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbCategoria" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="Impuesto" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+        <ComboBox fx:id="cmbImpuesto" maxWidth="Infinity" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+        <Label text="Proveedor" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="cmbProveedor" maxWidth="Infinity" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="3"/>
+
+        <Label text="Precio de compra" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtPrecioCompra" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+        <Label text="Precio de venta" GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+        <TextField fx:id="txtPrecioVenta" GridPane.rowIndex="5" GridPane.columnIndex="3"/>
+
+        <Label fx:id="lblStock" text="Stock inicial" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <TextField fx:id="txtStock" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+        <Label text="Stock mínimo" GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+        <TextField fx:id="txtStockMinimo" GridPane.rowIndex="6" GridPane.columnIndex="3"/>
+    </GridPane>
+
+    <Label fx:id="lblNotaStock" styleClass="subtitulo" wrapText="true"
+           text="El stock solo se fija al crear el producto. Después cambia con las ventas y los ajustes de inventario."/>
+    <Label fx:id="lblMensaje" styleClass="mensaje-error" wrapText="true" managed="false" visible="false"/>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Button text="Cancelar" cancelButton="true" onAction="#cancelar"/>
+        <Button fx:id="btnGuardar" text="Guardar" defaultButton="true" styleClass="boton-primario" onAction="#guardar"/>
+    </HBox>
+</VBox>

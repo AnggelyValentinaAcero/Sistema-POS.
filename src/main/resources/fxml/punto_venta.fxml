@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- onKeyPressed recibe las teclas F2 y F12 desde cualquier campo de la pantalla -->
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.pos.controller.PuntoVentaController" onKeyPressed="#teclaPresionada">
+
+    <top>
+        <VBox spacing="8">
+            <padding><Insets bottom="10"/></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="Punto de venta" styleClass="titulo-modulo"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblTurno" styleClass="subtitulo"/>
+            </HBox>
+            <Label fx:id="lblCajaCerrada" styleClass="aviso-caja" maxWidth="Infinity" managed="false" visible="false"
+                   text="La caja de esta terminal está cerrada. Ábrala en el módulo Caja para poder vender."/>
+            <HBox fx:id="panelCodigo" alignment="CENTER_LEFT" spacing="10">
+                <Label text="Código:"/>
+                <TextField fx:id="txtCodigo" prefWidth="320" onAction="#agregarPorCodigo"
+                           promptText="Escanee el código (ej: 3*7750123 para 3 unidades)"/>
+                <Button text="Buscar producto (F2)" onAction="#buscarProducto"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TableView fx:id="tabla">
+            <columns>
+                <TableColumn fx:id="colCodigo" text="Código" prefWidth="130"/>
+                <TableColumn fx:id="colProducto" text="Producto" prefWidth="300"/>
+                <TableColumn fx:id="colCantidad" text="Cant." prefWidth="70"/>
+                <TableColumn fx:id="colPrecio" text="Precio" prefWidth="100"/>
+                <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="110"/>
+            </columns>
+            <placeholder><Label text="Escanee un producto para empezar la venta"/></placeholder>
+        </TableView>
+    </center>
+
+    <right>
+        <VBox fx:id="panelDerecho" styleClass="tarjeta" spacing="10" prefWidth="290">
+            <BorderPane.margin><Insets left="12"/></BorderPane.margin>
+            <padding><Insets top="16" right="16" bottom="16" left="16"/></padding>
+
+            <Label text="Cliente" styleClass="subtitulo"/>
+            <Label fx:id="lblCliente" text="Consumidor final" style="-fx-font-weight: bold;" wrapText="true"/>
+            <HBox spacing="6">
+                <Button text="Elegir cliente" onAction="#elegirCliente"/>
+                <Button text="Quitar" onAction="#quitarCliente"/>
+            </HBox>
+
+            <Separator/>
+            <Button text="Cambiar cantidad" maxWidth="Infinity" onAction="#cambiarCantidad"/>
+            <Button text="Quitar producto" maxWidth="Infinity" onAction="#quitarProducto"/>
+            <Button text="Cancelar venta" maxWidth="Infinity" onAction="#cancelarVenta"/>
+
+            <Separator/>
+            <HBox><Label text="Subtotal (sin imp.)"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblSubtotal"/></HBox>
+            <HBox><Label text="Impuestos"/><Region HBox.hgrow="ALWAYS"/><Label fx:id="lblImpuesto"/></HBox>
+            <Label text="TOTAL" styleClass="subtitulo"/>
+            <Label fx:id="lblTotal" styleClass="total-venta"/>
+
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="COBRAR (F12)" maxWidth="Infinity" styleClass="boton-cobrar" onAction="#cobrar"/>
+        </VBox>
+    </right>
+</BorderPane>
